@@ -1,0 +1,12 @@
+<h1 class="capitalize text-primary font-light"><i class="fa-light fa-info-circle mr-2"></i>Category Details</h1>
+<div *ngIf="(category$ | async) as category" class="grid">
+    <div class="col-6">
+        <p-card header="{{category.name}}" subheader="{{category.description}}" styleClass="p-card-shadow">
+            <span [class]="'category-badge category-badge priority-' + category.priority">{{category.priority}}</span>
+            <p class="font-italic">List of subcategories</p>
+            <p-listbox [options]="category.subcategories!" optionLabel="name" optionDisabled="inactive" [filter]="true"
+                [readonly]="true" filterPlaceHolder="Search">
+            </p-listbox>
+        </p-card>
+    </div>
+</div>

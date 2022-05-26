@@ -1,0 +1,85 @@
+<h1 class="capitalize text-primary font-light"><i class="fa-thin fa-user mr-2"></i>New User</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="flex">
+        <div class="flex flex-column gap-5">
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-text"></i>
+                    <input id="firstname" type="text" pInputText formControlName="firstname">
+                    <label for="float-input">Firstname</label>
+                </span>
+                <small *ngIf="firstname?.hasError('required') && (firstname?.dirty || firstname?.touched )"
+                    class="p-error">
+                    Please enter the firstname field
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-text"></i>
+                    <input id="lastname" type="text" pInputText formControlName="lastname">
+                    <label for="float-input">Lastname</label>
+                </span>
+                <small *ngIf="lastname?.hasError('required') && (lastname?.dirty || lastname?.touched )"
+                    class="p-error">
+                    Please enter the lastname field
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-envelope"></i>
+                    <input id="email" type="email" pInputText formControlName="email">
+                    <label for="float-input">Email</label>
+                </span>
+                <small
+                    *ngIf="email?.hasError('required') && (email?.dirty || email?.touched && email?.value.length > 0); else emailError"
+                    class="p-error">
+                    Please enter an email address
+                </small>
+                <ng-template #emailError>
+                    <small *ngIf="email?.errors && (email?.dirty || email?.touched)" class="p-error">
+                        Please enter a valid email address
+                    </small>
+                </ng-template>
+            </div>
+            <div class="flex flex-column p-field">
+                <p-dropdown [options]="roles" formControlName="role" placeholder="Select a Role">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'user-badge role-' + option.value">{{option.label}}</span>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label">
+                    <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                        (onBlur)="password?.markAsTouched()">
+                    </p-password>
+                    <label for="float-input">Password</label>
+                </span>
+                <small class="p-error" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+                    Password field is required
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label">
+                    <p-password id="confirmPassword" [toggleMask]="true" [feedback]="false"
+                        formControlName="confirmPassword"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                        (onBlur)="confirmPassword?.markAsTouched()">
+                    </p-password>
+                    <label for="float-input">Confirm Password</label>
+                </span>
+                <small class="p-error"
+                    *ngIf="confirmPassword?.hasError('required') && (confirmPassword?.dirty || confirmPassword?.touched)">
+                    Confirm Password field is required
+                </small>
+                <small class="p-error"
+                    *ngIf="confirmPassword?.hasError('mustMatch') && (confirmPassword?.dirty || confirmPassword?.touched)">
+                    Password should match
+                </small>
+            </div>
+            <button pButton label="Save" style="width:100%;" [disabled]="!form.valid"
+                class="p-button-outlined"></button>
+        </div>
+    </div>
+</form>

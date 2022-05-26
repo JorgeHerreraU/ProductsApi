@@ -1,0 +1,3 @@
+:host ::ng-deep .p-paginator .p-paginator-current {
+    margin-left: auto;
+}

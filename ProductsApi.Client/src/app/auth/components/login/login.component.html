@@ -1,0 +1,38 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="flex mt-4" style="height: 100%; min-height: 100vh">
+        <div class="flex flex-column gap-5">
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="pi pi-envelope"></i>
+                    <input id="email" type="email" pInputText formControlName="email">
+                    <label for="float-input">Email</label>
+                </span>
+                <small
+                    *ngIf="email?.hasError('required') && (email?.dirty || email?.touched && email?.value.length > 0); else emailError"
+                    class="p-error">
+                    Please enter an email address
+                </small>
+                <ng-template #emailError>
+                    <small *ngIf="email?.errors && (email?.dirty || email?.touched)" class="p-error">
+                        Please enter a valid email address
+                    </small>
+                </ng-template>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label">
+                    <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                        (onBlur)="password?.markAsTouched()">
+                    </p-password>
+                    <label for="float-input">Password</label>
+                </span>
+                <small class="p-error" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+                    Password field is required
+                </small>
+            </div>
+            <button pButton style="width:100%;" [disabled]="!loginForm.valid" class="p-button-outlined"
+                [icon]="isLoading ? 'pi pi-spin pi-spinner': ''" label="Sign-In">
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+.subcategory-badge {
+    border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+
+.priority-low {
+    background-color: #c8e6c9;
+    color: #256029;
+}
+
+.priority-medium {
+    background-color: #ffd8b2;
+    color: #805b36;
+}
+
+.priority-high {
+    background-color: #ffcdd2;
+    color: #c63737;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-current {
+    margin-left: auto;
+}

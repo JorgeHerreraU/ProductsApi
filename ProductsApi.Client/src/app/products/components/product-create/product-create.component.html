@@ -1,0 +1,49 @@
+<h1 class="capitalize text-primary font-light"><i class="fa-light fa-box mr-2"></i>Create Product</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="flex">
+        <div class="flex flex-column gap-5">
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-file-signature"></i>
+                    <input id="name" type="text" pInputText formControlName="name">
+                    <label for="float-input">Name</label>
+                </span>
+                <small *ngIf="name?.hasError('required') && (name?.dirty || name?.touched )" class="p-error">
+                    Please enter a name
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-dollar-sign"></i>
+                    <input id="price" type="number" pInputText formControlName="price" min="0">
+                    <label for="float-input">Price</label>
+                </span>
+                <small *ngIf="price?.hasError('required') && (price?.dirty || price?.touched )" class="p-error">
+                    Please enter the price
+                </small>
+                <small *ngIf="price?.hasError('min') && (price?.dirty || price?.touched )" class="p-error">
+                    Price has to be greater than 0
+                </small>
+            </div>
+            <div class="flex flex-column p-field" *ngIf="(categories$ | async) as categories">
+                <p-dropdown [options]="categories" formControlName="category" optionLabel="name" [filter]="true"
+                    filterBy="name" [showClear]="true" filterPlaceholder="Search" placeholder="Select a category">
+                </p-dropdown>
+            </div>
+            <div class="flex flex-column p-field" *ngIf="(subcategories$ | async) as subcategories">
+                <p-listbox [options]="subcategories" [metaKeySelection]="false" [checkbox]="true" [filter]="true"
+                    [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}"
+                    formControlName="subcategories" filterPlaceHolder="Search subcategories">
+                    <ng-template let-subcategory pTemplate="item">
+                        <div class="country-item">
+                            <div>{{subcategory.name}}</div>
+                        </div>
+                    </ng-template>
+                </p-listbox>
+            </div>
+
+            <button type="submit" pButton label="Save" style="width:100%;" [disabled]="!form.valid"
+                class="p-button-outlined"></button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,80 @@
+<button pButton type="button" icon="pi pi-plus" iconPos="left" label="Create Subcategory" class="p-button-outlined"
+    style="margin-top: 1em" [routerLink]="'/subcategories/create'"></button>
+<div *ngIf="(subcategories$ | async) as subcategories" style="margin-top: 1em">
+    <p-table #dt [value]="subcategories" [(selection)]="selectedSubcategories" styleClass="p-datatable-customers"
+        [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['name']">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                <div class="flex justify-content-between">
+                    <div class="align-self-center">List of Subcategories</div>
+                    <div>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #textInput (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search" />
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">
+                    <div class="flex justify-content-between align-items-center">
+                        Id
+                        <p-sortIcon field="id"></p-sortIcon>
+                        <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="name">
+                    <div class="flex justify-content-between align-items-center">
+                        Name
+                        <p-sortIcon field="name"></p-sortIcon>
+                        <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Description</th>
+                <th pSortableColumn="priority">
+                    <div class="flex justify-content-between align-items-center">
+                        Priority
+                        <p-sortIcon field="priority"></p-sortIcon>
+                        <p-columnFilter field="priority" matchMode="equals" display="menu" class="ml-auto">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="priorities" (onChange)="filter($event.value)"
+                                    placeholder="Any">
+                                    <ng-template let-option pTemplate="item">
+                                        <span
+                                            [class]="'subcategory-badge priority-' + option.label">{{option.label}}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                </th>
+                <th style="width: 8rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-subcategory>
+            <tr>
+                <td>{{subcategory.id}}</td>
+                <td>{{subcategory.name}}</td>
+                <td>{{subcategory.description}}</td>
+                <td>
+                    <span class="p-column-title">Priority</span>
+                    <span [class]="'subcategory-badge priority-' + subcategory.priority">{{subcategory.priority}}</span>
+                </td>
+                <td class="flex gap-2" style="text-align: center">
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-info"
+                        [routerLink]="['details', subcategory.id]"></button>
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-pencil"
+                        [routerLink]="['edit', subcategory.id]"></button>
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-trash"
+                        [routerLink]="['delete', subcategory.id]"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

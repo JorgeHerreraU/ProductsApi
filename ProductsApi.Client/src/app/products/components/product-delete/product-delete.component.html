@@ -1,0 +1,28 @@
+<h1 class="capitalize text-primary font-light"><i class="fa-light fa-trash mr-2"></i>Product Delete</h1>
+<div *ngIf="(product$ | async) as product" class="grid">
+    <div class="col-6">
+        <p-card header="{{product.name}}" subheader="{{product.price | currency:'USD'}}" styleClass="p-card-shadow">
+            <span class="font-italic">Category</span>
+            <p class="font-bold uppercase">{{$any(product).category.name}}</p>
+            <p class="font-italic">List of subcategories</p>
+            <p-listbox [options]="product.subcategories!" optionLabel="name" optionDisabled="inactive" [filter]="true"
+                [readonly]="true" filterPlaceHolder="Search">
+            </p-listbox>
+            <ng-template pTemplate="footer">
+                <button pButton label="Delete" style="width:100%;" class="p-button-outlined p-button-danger"
+                    (click)="onDelete()"></button>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+<p-confirmDialog #cd>
+    <ng-template pTemplate="header">
+        <h3>Delete resource</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" class="p-button-outlined"
+            (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" class="p-button-outlined"
+            (click)="cd.accept()"></button>
+    </ng-template>
+</p-confirmDialog>

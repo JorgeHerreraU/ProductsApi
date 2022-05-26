@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="flex mt-4" style="height: 100%; min-height: 100vh">
+        <div class="flex flex-column gap-5">
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-text"></i>
+                    <input id="firstName" type="firstName" pInputText formControlName="firstName">
+                    <label for="float-input">Firstname</label>
+                </span>
+                <small *ngIf="firstName?.hasError('required') && (firstName?.dirty || firstName?.touched)"
+                    class="p-error">
+                    Please enter your first name
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-text"></i>
+                    <input id="lastName" type="lastName" pInputText formControlName="lastName">
+                    <label for="float-input">Lastname</label>
+                </span>
+                <small *ngIf="lastName?.hasError('required') && (lastName?.dirty || lastName?.touched)" class="p-error">
+                    Please enter your last name
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label p-input-icon-left">
+                    <i class="fa-light fa-envelope"></i>
+                    <input id="email" type="email" pInputText formControlName="email">
+                    <label for="float-input">Email</label>
+                </span>
+                <small
+                    *ngIf="email?.hasError('required') && (email?.dirty || email?.touched && email?.value.length > 0); else emailError"
+                    class="p-error">
+                    Please enter an email address
+                </small>
+                <ng-template #emailError>
+                    <small *ngIf="email?.errors && (email?.dirty || email?.touched)" class="p-error">
+                        Please enter a valid email address
+                    </small>
+                </ng-template>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label">
+                    <p-password id="password" [toggleMask]="true" [feedback]="false" formControlName="password"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                        (onBlur)="password?.markAsTouched()">
+                    </p-password>
+                    <label for="float-input">Password</label>
+                </span>
+                <small class="p-error" *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)">
+                    Password field is required
+                </small>
+            </div>
+            <div class="flex flex-column p-field">
+                <span class="p-float-label">
+                    <p-password id="confirmPassword" [toggleMask]="true" [feedback]="false"
+                        formControlName="confirmPassword"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                        (onBlur)="confirmPassword?.markAsTouched()">
+                    </p-password>
+                    <label for="float-input">Confirm Password</label>
+                </span>
+                <small class="p-error"
+                    *ngIf="confirmPassword?.hasError('required') && (confirmPassword?.dirty || confirmPassword?.touched)">
+                    Confirm Password field is required
+                </small>
+                <small class="p-error"
+                    *ngIf="confirmPassword?.hasError('mustMatch') && (confirmPassword?.dirty || confirmPassword?.touched)">
+                    Password should match
+                </small>
+            </div>
+            <button pButton label="Register" style="width:100%;" [disabled]="!form.valid"
+                class="p-button-outlined"></button>
+        </div>
+    </div>
+</form>

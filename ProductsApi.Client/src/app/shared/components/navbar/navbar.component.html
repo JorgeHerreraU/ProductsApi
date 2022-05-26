@@ -1,0 +1,10 @@
+<p-menubar #mb [model]="items">
+    <ng-template pTemplate="end">
+        <button pButton type="button" icon="pi pi-plus-circle" iconPos="left" class="p-button-text p-button-secondary"
+            label="Register" [routerLink]="'/register'" *ngIf="!isLoggedIn"></button>
+        <button pButton type="button" icon="pi pi-sign-in" iconPos="left" class="p-button-text p-button-secondary"
+            label="Sign-in" [routerLink]="'/login'" *ngIf="!isLoggedIn"></button>
+        <button pButton type="button" icon="pi pi-sign-out" iconPos="left" class="p-button-text p-button-secondary"
+            label="Sign-out" (click)="logout()" *ngIf="isLoggedIn"></button>
+    </ng-template>
+</p-menubar>

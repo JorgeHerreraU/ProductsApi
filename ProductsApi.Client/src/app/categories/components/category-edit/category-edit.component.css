@@ -1,0 +1,18 @@
+:host ::ng-deep input {
+    width: 25rem;
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 25rem;
+}
+
+:host ::ng-deep .p-listbox {
+    width: 35rem;
+}
+
+.p-listbox-label {
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: 2.5rem;
+    margin-top: -.75rem;
+}

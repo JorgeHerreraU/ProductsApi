@@ -1,0 +1,9 @@
+<header>
+    <app-navbar></app-navbar>
+    <app-breadcrumb></app-breadcrumb>
+</header>
+<main [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</main>
+<footer></footer>
+<p-toast position="bottom-center" key="toast"></p-toast>

@@ -1,0 +1,92 @@
+<button pButton type="button" icon="pi pi-plus" iconPos="left" label="Create User" class="p-button-outlined"
+    style="margin-top: 1em" [routerLink]="'/users/create'"></button>
+<div *ngIf="(users$ | async) as users" style="margin-top: 1em">
+    <p-table #dt [value]="users" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['name']">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                <div class="flex justify-content-between">
+                    <div class="align-self-center">List of Categories</div>
+                    <div>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" #textInput (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search" />
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">
+                    <div class="flex justify-content-between align-items-center">
+                        Id
+                        <p-sortIcon field="id"></p-sortIcon>
+                        <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="firstname">
+                    <div class="flex justify-content-between align-items-center">
+                        Firstname
+                        <p-sortIcon field="firstname"></p-sortIcon>
+                        <p-columnFilter type="text" field="firstname" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="lastname">
+                    <div class="flex justify-content-between align-items-center">
+                        Lastname
+                        <p-sortIcon field="lastname"></p-sortIcon>
+                        <p-columnFilter type="text" field="lastname" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="email">
+                    <div class="flex justify-content-between align-items-center">
+                        E-mail
+                        <p-sortIcon field="email"></p-sortIcon>
+                        <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="role">
+                    <div class="flex justify-content-between align-items-center">
+                        Role
+                        <p-sortIcon field="role"></p-sortIcon>
+                        <p-columnFilter field="role" matchMode="equals" display="menu" class="ml-auto">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <p-dropdown [ngModel]="value" [options]="roles" (onChange)="filter($event.value)"
+                                    placeholder="Any">
+                                    <ng-template let-option pTemplate="item">
+                                        <span [class]="'user-badge role-' + option.label">{{option.label}}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                            </ng-template>
+                        </p-columnFilter>
+                    </div>
+                </th>
+                <th style="width: 8rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <span class="p-column-title">Role</span>
+                    <span [class]="'user-badge role-' + user.role">{{user.role}}</span>
+                </td>
+                <td class="flex gap-2" style="text-align: center">
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-info"
+                        [routerLink]="['details', user.id]"></button>
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-pencil"
+                        [routerLink]="['edit', user.id]"></button>
+                    <button pButton type="button" class="p-button-outlined" icon="pi pi-trash"
+                        [routerLink]="['delete', user.id]"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
