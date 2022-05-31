@@ -9,7 +9,9 @@
 [AZURE WEBSITE LINK](https://brave-coast-06e0f7c0f.1.azurestaticapps.net)
 ## ✏️ Description
 Fullstack app to create products within categories and subcategories built in Angular (Front-End) & ASP .NET 6 (Back-End)
-* Use the following credential admin@email.com to sign-in with admin privileges
+* Use the following credential to sign-in with admin privileges:
+    - Email: admin@email.com
+    - Password: password
 
 ### 💾 Database diagram
 ![Database Diagram](https://i.ibb.co/yBRvF2m/Database.png)
